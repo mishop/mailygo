@@ -11,7 +11,8 @@ type config struct {
 	Port              int      `env:"PORT" envDefault:"8080"`
 	HoneyPots         []string `env:"HONEYPOTS" envDefault:"_t_email" envSeparator:","`
 	DefaultRecipient  string   `env:"EMAIL_TO"`
-	AllowedRecipients []string `env:"ALLOWED_TO" envSeparator:","`
+	AllowedRecipients string   `env:"ALLOWED_TO" envSeparator:","`
+	AllowedRecipient  []string `env:"ALLOWED_TO" envSeparator:","`
 	Sender            string   `env:"EMAIL_FROM"`
 	SMTPUser          string   `env:"SMTP_USER"`
 	SMTPPassword      string   `env:"SMTP_PASS"`
@@ -27,6 +28,7 @@ func parseConfig() (*config, error) {
 	if err := env.Parse(cfg); err != nil {
 		return cfg, errors.New("failed to parse config")
 	}
+	cfg.AllowedRecipient = strings.Split(cfg.AllowedRecipients, ",")
 	cfg.BlacklistArray = strings.Split(cfg.Blacklist, ",")
 	return cfg, nil
 }
@@ -35,7 +37,7 @@ func checkRequiredConfig(cfg *config) bool {
 	if cfg.DefaultRecipient == "" {
 		return false
 	}
-	if len(cfg.AllowedRecipients) < 1 {
+	if len(cfg.AllowedRecipient) < 1 {
 		return false
 	}
 	if cfg.Sender == "" {

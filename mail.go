@@ -55,7 +55,7 @@ func sendMail(to, message string) {
 func findRecipient(values *FormValues) string {
 	if len((*values)["_to"]) == 1 && (*values)["_to"][0] != "" {
 		formDefinedRecipient := (*values)["_to"][0]
-		for _, allowed := range appConfig.AllowedRecipients {
+		for _, allowed := range appConfig.AllowedRecipient {
 			if formDefinedRecipient == allowed {
 				return formDefinedRecipient
 			}
