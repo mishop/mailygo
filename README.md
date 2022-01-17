@@ -82,7 +82,7 @@ If a Google Safe Browsing API key is set, submitted URLs will also get checked f
 ## Nginx configuration
 
 ```bash
-   location /mail {
+location /mail {
    proxy_pass http://localhost:8080;
    proxy_set_header X-Real-IP $remote_addr;
    add_header 'Access-Control-Allow-Origin' '*';
