@@ -3,14 +3,41 @@
 MailyGo is a small tool written in Go that allows to send HTML forms, for example from static websites without a dynamic backend, via email. It can be used for contact forms on pages created with [Hugo](https://gohugo.io/) ([example](https://jlelse.dev/contact/)).
 
 MailyGo is lean and resource-saving. It can be installed with just one executable file.
+This repositroy is clone of [MailyGo](https://git.jlel.se/jlelse/MailyGo) with updated mod to use with Golang 1.8+
 
 ## Installation
 
 MailyGo can be compiled with the following command:
 
 ```bash
-go install github.com/mishop/mailygo
+go install github.com/mishop/mailygo@latest
 ```
+## Configuration
+
+```bash
+export EMAIL_TO="your@email" 
+export ALLOWED_TO="your@email" 
+export EMAIL_FROM="web@alpro.ba" 
+export SMTP_USER="apikey" export 
+export SMTP_PASS="API Key" 
+export SMTP_HOST="smtp.sendgrid.net"
+```
+
+## Set startup
+
+Make file cron_job.sh (home folder example)
+
+```bash
+#!/bin/bash
+source $HOME/.profile
+mailygo
+```
+
+```bash
+crontab -e
+```
+add
+@reboot /home/user/cron_job.sh
 
 It can then be executed directly.
 
