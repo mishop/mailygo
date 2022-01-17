@@ -12,7 +12,7 @@ type config struct {
 	HoneyPots         []string `env:"HONEYPOTS" envDefault:"_t_email" envSeparator:","`
 	DefaultRecipient  string   `env:"EMAIL_TO"`
 	AllowedRecipients string   `env:"ALLOWED_TO" envSeparator:","`
-	AllowedRecipient  []string `env:"ALLOWED_TO" envSeparator:","`
+	AllowedRecipient  []string
 	Sender            string   `env:"EMAIL_FROM"`
 	SMTPUser          string   `env:"SMTP_USER"`
 	SMTPPassword      string   `env:"SMTP_PASS"`
