@@ -1,6 +1,8 @@
 # MailyGo
 
-MailyGo is a small tool written in Go that allows to send HTML forms, for example from static websites without a dynamic backend, via email. It can be used for contact forms on pages created with [Hugo](https://gohugo.io/) ([example](https://jlelse.dev/contact/)).
+MailyGo is a small tool written in Go that allows to send HTML forms, for example from static websites without a dynamic backend, via email. It can be used for contact forms on pages created with [Hugo](https://gohugo.io/) ([example](https://www.mercedesfault.com)).
+
+Multiple defined recipients updated and now you can use one service for multiple sites and separate messages.
 
 MailyGo is lean and resource-saving. It can be installed with just one executable file.
 This repositroy is clone of [MailyGo](https://git.jlel.se/jlelse/MailyGo) with updated mod to use with Golang 1.8+
@@ -16,7 +18,7 @@ go install github.com/mishop/mailygo@latest
 
 ```bash
 export EMAIL_TO="your@email" 
-export ALLOWED_TO="your@email" 
+export ALLOWED_TO="your@email,your2@email,your3@email" 
 export EMAIL_FROM="web@alpro.ba" 
 export SMTP_USER="apikey" export 
 export SMTP_PASS="API Key" 
@@ -76,6 +78,16 @@ You can find a sample form in the `form.html` file. Only fields whose name do no
 MailyGo offers the option to use a [Honeypot](https://en.wikipedia.org/wiki/Honeypot\_(computing)) field, which is basically another input, but it's hidden to the user with either a CSS rule or some JavaScript. It is very likely, that your public form will get the attention of some bots some day and then the spam starts. But bots try to fill every possible input field and will also fill the honeypot field. MailyGo won't send mails of form submissions where a honeypot field is filled. So you should definitely use it.
 
 If a Google Safe Browsing API key is set, submitted URLs will also get checked for threats.
+
+## Nginx configuration
+
+```bash
+   location /mail {
+   proxy_pass http://localhost:8080;
+   proxy_set_header X-Real-IP $remote_addr;
+   add_header 'Access-Control-Allow-Origin' '*';
+  }
+```
 
 ## License
 
