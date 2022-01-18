@@ -40,7 +40,7 @@ crontab -e
 ```
 add
 ```bash
-@reboot /home/user/cron_job.sh >> /var/log/cronjob.log 1>$2
+@reboot /home/user/cron_job.sh >> /tmp/cronjob.log 1>$2
 ```
 It can then be executed directly.
 
