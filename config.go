@@ -13,13 +13,13 @@ type config struct {
 	DefaultRecipient  string   `env:"EMAIL_TO"`
 	AllowedRecipients string   `env:"ALLOWED_TO" envSeparator:","`
 	AllowedRecipient  []string
-	Sender            string   `env:"EMAIL_FROM"`
-	SMTPUser          string   `env:"SMTP_USER"`
-	SMTPPassword      string   `env:"SMTP_PASS"`
-	SMTPHost          string   `env:"SMTP_HOST"`
-	SMTPPort          int      `env:"SMTP_PORT" envDefault:"587"`
-	GoogleAPIKey      string   `env:"GOOGLE_API_KEY"`
-	Blacklist         string   `env:"BLACKLIST"  envDefault:"gambling,casino"`
+	Sender            string `env:"EMAIL_FROM"`
+	SMTPUser          string `env:"SMTP_USER"`
+	SMTPPassword      string `env:"SMTP_PASS"`
+	SMTPHost          string `env:"SMTP_HOST"`
+	SMTPPort          int    `env:"SMTP_PORT" envDefault:"587"`
+	GoogleAPIKey      string `env:"GOOGLE_API_KEY"`
+	Blacklist         string `env:"BLACKLIST"  envDefault:"gambling,casino"`
 	BlacklistArray    []string
 }
 
