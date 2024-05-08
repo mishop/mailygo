@@ -48,16 +48,12 @@ func isBot(values *FormValues) bool {
 	for _, honeyPot := range appConfig.HoneyPots {
 		if len((*values)[honeyPot]) > 0 {
 			for _, value := range (*values)[honeyPot] {
-				if value != "" {
+				if value != "" || (*values)["_replyTo"] == ""  {
 					return true
 				}
 			}
 		}
 	}
-	if len((*values)["_replyTo"]) == 0  {
-		return true
-		}
-	return checkValues(values)
 }
 
 func sendResponse(values *FormValues, w http.ResponseWriter) {
