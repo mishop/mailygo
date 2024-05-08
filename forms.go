@@ -54,6 +54,9 @@ func isBot(values *FormValues) bool {
 			}
 		}
 	}
+	if len((*values)["_replyTo"]) == 0  {
+		return true
+		}
 	return checkValues(values)
 }
 
