@@ -52,23 +52,26 @@ func TestFormHandler(t *testing.T) {
 func Test_isBot(t *testing.T) {
 	t.Run("No bot", func(t *testing.T) {
 		os.Clearenv()
-		result := isBot(&FormValues{"_t_email": {""}})
-		if !reflect.DeepEqual(result, false) {
-			t.Error()
+		formData := FormValues{"_t_email": {""}, "_replyTo": {"misho@misho.net"}}
+		result := isBot(&formData)
+		if result != false {
+			t.Errorf("Expected false, got %v", result)
 		}
 	})
 	t.Run("No honeypot", func(t *testing.T) {
 		os.Clearenv()
-		result := isBot(&FormValues{})
-		if !reflect.DeepEqual(result, false) {
-			t.Error()
+		formData := FormValues{}
+		result := isBot(&formData)
+		if result != true {
+			t.Errorf("Expected true, got %v", result)
 		}
 	})
-	t.Run("Bot", func(t *testing.T) {
+	t.Run("Bot with empty _replyTo", func(t *testing.T) {
 		os.Clearenv()
-		result := isBot(&FormValues{"_t_email": {"Test", ""}})
-		if !reflect.DeepEqual(result, true) {
-			t.Error()
+		formData := FormValues{"_t_email": {""}, "_replyTo": {""}}
+		result := isBot(&formData)
+		if result != true {
+			t.Errorf("Expected true, got %v", result)
 		}
 	})
 }
