@@ -46,7 +46,7 @@ func sanitizeForm(values *url.Values) *FormValues {
 
 func isBot(values *FormValues) bool {
 	for _, honeyPot := range appConfig.HoneyPots {
-		if len((*values)[honeyPot]) > 0 || (*values)["_replyTo"] == nil {
+		if len((*values)[honeyPot]) > 0 {
 			for _, value := range (*values)[honeyPot] {
 				if value != "" {
 					return true
@@ -54,6 +54,10 @@ func isBot(values *FormValues) bool {
 			}
 		}
 	}
+	if len((*values)["_replyTo"]) == 0 || len((*values)["_replyTo"]) == 1 && (*values)["_replyTo"][0] == "" {
+		return true
+	}
+
 	return checkValues(values)
 }
 
