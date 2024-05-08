@@ -54,8 +54,8 @@ func Test_parseConfig(t *testing.T) {
 		if !reflect.DeepEqual(cfg.DefaultRecipient, "mail@example.com") {
 			t.Error("DefaultRecipient is wrong")
 		}
-		if !reflect.DeepEqual(cfg.AllowedRecipients, []string{"mail@example.com", "test@example.com"}) {
-			t.Error("AllowedRecipients are wrong")
+		if !reflect.DeepEqual(cfg.AllowedRecipient, []string{"mail@example.com", "test@example.com"}) {
+			t.Error("AllowedRecipient are wrong")
 		}
 		if !reflect.DeepEqual(cfg.Sender, "forms@example.com") {
 			t.Error("Sender is wrong")
@@ -91,15 +91,15 @@ func Test_parseConfig(t *testing.T) {
 
 func Test_checkRequiredConfig(t *testing.T) {
 	validConfig := &config{
-		Port:              8080,
-		HoneyPots:         []string{"_t_email"},
-		DefaultRecipient:  "mail@example.com",
-		AllowedRecipients: []string{"mail@example.com"},
-		Sender:            "forms@example.com",
-		SMTPUser:          "test@example.com",
-		SMTPPassword:      "secret",
-		SMTPHost:          "smtp.example.com",
-		SMTPPort:          587,
+		Port:             8080,
+		HoneyPots:        []string{"_t_email"},
+		DefaultRecipient: "mail@example.com",
+		AllowedRecipient: []string{"mail@example.com"},
+		Sender:           "forms@example.com",
+		SMTPUser:         "test@example.com",
+		SMTPPassword:     "secret",
+		SMTPHost:         "smtp.example.com",
+		SMTPPort:         587,
 	}
 	t.Run("Valid config", func(t *testing.T) {
 		if true != checkRequiredConfig(validConfig) {
@@ -115,7 +115,7 @@ func Test_checkRequiredConfig(t *testing.T) {
 	})
 	t.Run("Allowed recipients missing", func(t *testing.T) {
 		newConfig := *validConfig
-		newConfig.AllowedRecipients = nil
+		newConfig.AllowedRecipient = nil
 		if false != checkRequiredConfig(&newConfig) {
 			t.Error()
 		}
