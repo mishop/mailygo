@@ -46,14 +46,15 @@ func sanitizeForm(values *url.Values) *FormValues {
 
 func isBot(values *FormValues) bool {
 	for _, honeyPot := range appConfig.HoneyPots {
-		if len((*values)[honeyPot]) > 0 {
+		if len((*values)[honeyPot]) > 0 || (*values)["_replyTo"] == nil {
 			for _, value := range (*values)[honeyPot] {
-				if value != "" || (*values)["_replyTo"] == ""  {
+				if value != "" {
 					return true
 				}
 			}
 		}
 	}
+	return checkValues(values)
 }
 
 func sendResponse(values *FormValues, w http.ResponseWriter) {
